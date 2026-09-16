@@ -1,0 +1,9 @@
+{
+  "name": "emonounmeido-ogp",
+  "version": "1.0.0",
+  "private": true,
+  "description": "えもの運命堂の診断結果ごとに、動的なOGP画像とシェア用ページを生成するVercelサービス",
+  "dependencies": {
+    "@vercel/og": "^0.6.8"
+  }
+}
