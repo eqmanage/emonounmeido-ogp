@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>えもの運命堂 15秒プロモ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Old+Mincho:wght@700;900&family=Noto+Sans+JP:wght@400;500;700&display=swap">
+<style>
+  /* ブランドトークンは api/og.js / 本サイトの style.css と揃える */
+  :root {
+    --navy: #16233F; --navy-2: #2B3F63; --sky: #EFF4F9; --sky-2: #DCE6F0;
+    --paper: #FCFBF8; --ink: #23262E; --muted: #6E7787; --line: #D9E1EA; --ring: #8FA3BE;
+    --mincho: 'Zen Old Mincho', serif; --sans: 'Noto Sans JP', sans-serif;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1080px; height: 1920px; overflow: hidden; background: var(--navy); }
+  #stage { position: relative; width: 1080px; height: 1920px; overflow: hidden; font-family: var(--sans); }
+  .scene { position: absolute; inset: 0; opacity: 0; }
+  .center { position: absolute; left: 0; right: 0; text-align: center; }
+  .mincho { font-family: var(--mincho); font-weight: 900; }
+  .rings { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); }
+
+  /* ---------- S1: フック ---------- */
+  #s1 { background: var(--navy); color: var(--paper); }
+  #s1 .l1 { top: 500px; font-size: 92px; letter-spacing: .08em; }
+  #s1 .l2 { top: 660px; font-size: 250px; line-height: 1; letter-spacing: .02em; }
+  #s1 .l3 { top: 970px; font-size: 128px; letter-spacing: .06em; }
+  #s1 .age { top: 1240px; font-size: 54px; color: var(--ring); font-family: var(--sans); font-weight: 500; letter-spacing: .1em; }
+  #s1 .age b { font-family: var(--mincho); font-weight: 900; font-size: 96px; color: var(--sky); margin: 0 .1em; }
+  #s1 .bar { position: absolute; left: 190px; width: 700px; top: 1390px; height: 6px; background: rgba(220,230,240,.18); border-radius: 3px; overflow: hidden; }
+  #s1 .bar i { display: block; height: 100%; width: 0; background: var(--sky); }
+  #wipe { position: absolute; left: 50%; top: 50%; width: 10px; height: 10px; border-radius: 50%; background: var(--paper); transform: translate(-50%, -50%) scale(0); }
+
+  /* ---------- S2: 翻訳の連打 ---------- */
+  #s2 { background: linear-gradient(170deg, var(--paper) 0%, var(--sky) 55%, var(--sky-2) 100%); color: var(--navy); }
+  #s2 .head { top: 330px; font-size: 54px; color: var(--muted); letter-spacing: .08em; font-weight: 500; }
+  #s2 .head em { font-style: normal; color: var(--navy); font-weight: 700; }
+  #s2 .old { top: 600px; font-size: 104px; color: var(--muted); font-family: var(--mincho); font-weight: 700; }
+  #s2 .old span { position: relative; display: inline-block; }
+  #s2 .old span::after { content: ''; position: absolute; left: -12px; right: -12px; top: 54%; height: 8px; background: #C0504D; transform-origin: left; transform: scaleX(var(--strike, 0)); border-radius: 4px; }
+  #s2 .arrow { top: 790px; font-size: 80px; color: var(--navy-2); }
+  #s2 .new { top: 930px; font-size: 120px; line-height: 1.25; padding: 0 60px; }
+  #s2 .essence { top: 1260px; font-size: 44px; color: var(--navy-2); letter-spacing: .04em; padding: 0 80px; line-height: 1.6; }
+  #s2 .count { top: 1540px; font-size: 36px; color: var(--muted); letter-spacing: .3em; }
+  #s2 .flash { position: absolute; inset: 0; background: #fff; opacity: 0; }
+
+  /* ---------- S3: 問いかけ+スロット ---------- */
+  #s3 { background: var(--navy); color: var(--paper); }
+  #s3 .q1 { top: 380px; font-size: 84px; letter-spacing: .06em; }
+  #s3 .q2 { top: 500px; font-size: 110px; letter-spacing: .04em; }
+  #s3 .card { position: absolute; left: 110px; width: 860px; top: 790px; height: 520px; background: var(--paper); border-radius: 36px; box-shadow: 0 30px 80px rgba(0,0,0,.35); color: var(--navy); overflow: hidden; }
+  #s3 .card .tag { position: absolute; left: 60px; top: 56px; background: var(--navy); color: var(--paper); font-size: 32px; padding: 10px 28px; border-radius: 999px; }
+  #s3 .card .lbl { position: absolute; left: 60px; top: 160px; font-size: 36px; color: var(--muted); }
+  #s3 .card .slot { position: absolute; left: 0; right: 0; top: 240px; height: 170px; text-align: center; font-size: 96px; line-height: 170px; }
+  #s3 .card .score { position: absolute; right: 60px; bottom: 44px; font-size: 32px; color: var(--muted); }
+  #s3 .card .score b { font-family: var(--mincho); font-size: 64px; color: var(--navy); }
+
+  /* ---------- S4: CTA ---------- */
+  #s4 { background: linear-gradient(170deg, var(--paper) 0%, var(--sky) 60%, var(--sky-2) 100%); color: var(--navy); }
+  #s4 .brand { top: 640px; font-size: 120px; letter-spacing: .08em; }
+  #s4 .brand small { font-size: 56px; opacity: .5; }
+  #s4 .copy { top: 830px; font-size: 52px; color: var(--navy-2); letter-spacing: .06em; font-weight: 500; }
+  #s4 .btn { position: absolute; left: 140px; width: 800px; top: 1010px; height: 190px; background: var(--navy); color: var(--paper); border-radius: 999px; text-align: center; box-shadow: 0 20px 50px rgba(22,35,63,.3); }
+  #s4 .btn .a { display: block; font-size: 58px; font-weight: 700; padding-top: 34px; letter-spacing: .04em; }
+  #s4 .btn .b { display: block; font-size: 34px; opacity: .8; margin-top: 4px; }
+  #s4 .chips { top: 1270px; font-size: 40px; color: var(--muted); letter-spacing: .1em; }
+  #s4 .url { top: 1390px; font-size: 38px; color: var(--navy-2); letter-spacing: .02em; font-weight: 500; }
+  #s4 .tap { top: 1460px; font-size: 40px; color: var(--navy); font-weight: 700; letter-spacing: .08em; }
+</style>
+</head>
+<body>
+<div id="stage">
+
+  <section class="scene" id="s1">
+    <div class="center mincho l1" id="s1l1">このまま</div>
+    <div class="center mincho l2" id="s1l2">20年、</div>
+    <div class="center mincho l3" id="s1l3">働きますか？</div>
+    <div class="center age" id="s1age">あなたは今 <b id="age">45</b> 歳</div>
+    <div class="bar" id="s1bar"><i id="s1barFill"></i></div>
+    <div id="wipe"></div>
+  </section>
+
+  <section class="scene" id="s2">
+    <svg class="rings" id="s2rings" width="1400" height="1400" viewBox="0 0 200 200" aria-hidden="true" style="top:880px; opacity:.5">
+      <circle cx="100" cy="100" r="20" fill="none" stroke="#16233F" stroke-width=".6"/>
+      <circle cx="100" cy="100" r="40" fill="none" stroke="#2B3F63" stroke-width=".5" opacity=".6"/>
+      <circle cx="100" cy="100" r="62" fill="none" stroke="#2B3F63" stroke-width=".4" opacity=".45"/>
+      <circle cx="100" cy="100" r="86" fill="none" stroke="#8FA3BE" stroke-width=".4" opacity=".4"/>
+    </svg>
+    <div class="center head" id="s2head">あなたの経験を、<em>翻訳</em>すると――</div>
+    <div class="center old" id="s2old"><span id="s2oldTxt"></span></div>
+    <div class="center arrow" id="s2arrow">↓</div>
+    <div class="center mincho new" id="s2new"></div>
+    <div class="center essence" id="s2ess"></div>
+    <div class="center count" id="s2count"></div>
+    <div class="flash" id="s2flash"></div>
+  </section>
+
+  <section class="scene" id="s3">
+    <svg class="rings" id="s3rings" width="1300" height="1300" viewBox="0 0 200 200" aria-hidden="true" style="top:1050px">
+      <circle cx="100" cy="100" r="20" fill="none" stroke="#DCE6F0" stroke-width=".7"/>
+      <circle cx="100" cy="100" r="40" fill="none" stroke="#DCE6F0" stroke-width=".6" opacity=".7"/>
+      <circle cx="100" cy="100" r="62" fill="none" stroke="#8FA3BE" stroke-width=".5" opacity=".55"/>
+      <circle cx="100" cy="100" r="86" fill="none" stroke="#8FA3BE" stroke-width=".5" opacity=".4"/>
+    </svg>
+    <div class="center mincho q1" id="s3q1">あなたの経験は、</div>
+    <div class="center mincho q2" id="s3q2">何に翻訳される？</div>
+    <div class="card" id="s3card">
+      <span class="tag">可能性診断・結果</span>
+      <span class="lbl">私の経験は、こう翻訳されました</span>
+      <div class="slot mincho" id="slot"></div>
+      <span class="score">適合度 <b id="score">??</b>%</span>
+    </div>
+  </section>
+
+  <section class="scene" id="s4">
+    <svg class="rings" id="s4rings" width="420" height="420" viewBox="0 0 200 200" aria-hidden="true" style="top:420px">
+      <circle cx="100" cy="100" r="20" fill="none" stroke="#16233F" stroke-width="1.6"/>
+      <circle cx="100" cy="100" r="40" fill="none" stroke="#2B3F63" stroke-width="1.3" opacity=".8"/>
+      <circle cx="100" cy="100" r="62" fill="none" stroke="#2B3F63" stroke-width="1.1" opacity=".6"/>
+      <circle cx="100" cy="100" r="86" fill="none" stroke="#8FA3BE" stroke-width="1" opacity=".5"/>
+      <circle cx="100" cy="100" r="94" fill="none" stroke="#DCE6F0" stroke-width="6" opacity=".7"/>
+    </svg>
+    <div class="center mincho brand" id="s4brand">えもの運命堂<small>(仮)</small></div>
+    <div class="center copy" id="s4copy">あなたの経験を、翻訳します。</div>
+    <div class="btn" id="s4btn"><span class="a">自分の可能性を診断する</span><span class="b">所要時間3分・無料</span></div>
+    <div class="center chips" id="s4chips">登録不要 ・ 入力内容は保存されません</div>
+    <div class="center url" id="s4url">eqmanage.github.io/emonounmeido</div>
+    <div class="center tap" id="s4tap">▲ プロフィールのリンクから</div>
+  </section>
+
+</div>
+
+<script>
+/* ===== タイムライン(秒)。audio.mjs のキューもこの値と揃えている ===== */
+const T = { s1: 0, s2: 2.5, s3: 9.5, s4: 12.3, end: 15 };
+
+/* 本サイトの occupationDictionary から、意外性のある翻訳例を抜粋 */
+const PAIRS = [
+  { from: '看護師', to: 'キャリア<br>カウンセラー', ess: '人の弱さに寄り添い、支え続ける力', dur: 1.75 },
+  { from: '主婦', to: 'ライフ<br>オーガナイザー', ess: '見えない仕事を同時に回し続けてきた<br>マネジメント力', dur: 1.5 },
+  { from: '経理', to: 'ファイナンシャル<br>プランナー', ess: '細部を見落とさず、正確に積み上げる力', dur: 1.25 },
+  { from: '営業', to: 'カスタマー<br>サクセス', ess: '', dur: 0.9 },
+  { from: '教師', to: '企業研修講師', ess: '', dur: 0.85 },
+  { from: 'エンジニア', to: '技術顧問', ess: '', dur: 0.75 },
+];
+const SLOT = ['キャリアカウンセラー','食育インストラクター','パーソナルスタイリスト','技術顧問','地域コーディネーター','絵本作家','品質管理の専門職','防災士','ライター','終活カウンセラー','事業承継アドバイザー','スポーツトレーナー'];
+
+const $ = (id) => document.getElementById(id);
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const prog = (t, a, b) => clamp((t - a) / (b - a));
+const easeOut = (x) => 1 - Math.pow(1 - x, 3);
+const easeIn = (x) => x * x * x;
+const backOut = (x) => { const c = 1.9; return 1 + (c + 1) * Math.pow(x - 1, 3) + c * Math.pow(x - 1, 2); };
+const lerp = (a, b, x) => a + (b - a) * x;
+
+function show(el, o, y = 0, s = 1) {
+  el.style.opacity = o;
+  el.style.transform = `translateY(${y}px) scale(${s})`;
+}
+function fadeUp(el, t, start, dur = 0.35, dist = 40) {
+  const p = easeOut(prog(t, start, start + dur));
+  show(el, p, (1 - p) * dist);
+}
+function punch(el, t, start, dur = 0.3, from = 1.6) {
+  const p = prog(t, start, start + dur);
+  show(el, clamp(p * 3), 0, t < start ? from : lerp(from, 1, backOut(p)));
+}
+
+function render(t) {
+  const scenes = ['s1', 's2', 's3', 's4'];
+  const starts = [T.s1, T.s2, T.s3, T.s4, T.end];
+  scenes.forEach((id, i) => { $(id).style.opacity = t >= starts[i] && t < starts[i + 1] ? 1 : 0; });
+  // 最終フレームでも S4 を表示し続ける
+  if (t >= T.end) $('s4').style.opacity = 1;
+
+  /* ---- S1: フック ---- */
+  if (t < T.s2) {
+    fadeUp($('s1l1'), t, 0.05, 0.3);
+    punch($('s1l2'), t, 0.35, 0.35, 2.4);
+    fadeUp($('s1l3'), t, 0.9, 0.3, 60);
+    fadeUp($('s1age'), t, 1.15, 0.25);
+    const ap = easeIn(prog(t, 1.3, 2.15));
+    $('age').textContent = Math.round(45 + 20 * ap);
+    $('s1bar').style.opacity = prog(t, 1.15, 1.35);
+    $('s1barFill').style.width = (ap * 100) + '%';
+    // 年齢が65歳に達したら軽く揺らす
+    const shake = t > 2.15 && t < 2.3 ? Math.sin(t * 160) * 10 : 0;
+    $('s1').style.transform = `translateX(${shake}px)`;
+    const w = easeIn(prog(t, 2.2, 2.5));
+    $('wipe').style.transform = `translate(-50%, -50%) scale(${w * 450})`;
+  }
+
+  /* ---- S2: 翻訳の連打 ---- */
+  if (t >= T.s2 && t < T.s3) {
+    const lt = t - T.s2;
+    fadeUp($('s2head'), lt, 0, 0.3);
+    let acc = 0.15, idx = 0;
+    while (idx < PAIRS.length - 1 && lt >= acc + PAIRS[idx].dur) { acc += PAIRS[idx].dur; idx++; }
+    const p = PAIRS[idx], k = lt - acc, d = p.dur;
+    const fast = d < 1;
+    $('s2oldTxt').textContent = p.from;
+    $('s2new').innerHTML = p.to;
+    // 一番長い行が横幅に収まるよう文字サイズを調整する
+    const longest = Math.max(...p.to.split('<br>').map((x) => x.length));
+    $('s2new').style.fontSize = Math.min(120, Math.floor(900 / longest)) + 'px';
+    $('s2ess').innerHTML = p.ess;
+    $('s2count').textContent = `${String(idx + 1).padStart(2, '0')} / ${String(PAIRS.length).padStart(2, '0')}`;
+    // 旧職種 → 取り消し線 → 新職種がスラムイン
+    const tStrike = fast ? 0.12 : 0.28, tNew = fast ? 0.22 : 0.48;
+    fadeUp($('s2old'), k, 0, 0.12, 20);
+    $('s2old').style.setProperty('--strike', easeOut(prog(k, tStrike, tStrike + 0.14)));
+    fadeUp($('s2arrow'), k, tStrike, 0.14, -30);
+    punch($('s2new'), k, tNew, 0.26, 1.5);
+    fadeUp($('s2ess'), k, tNew + 0.25, 0.3, 20);
+    $('s2count').style.opacity = lt > 0.15 ? 1 : 0;
+    $('s2flash').style.opacity = k >= tNew && k < tNew + 0.08 ? 0.55 * (1 - (k - tNew) / 0.08) : 0;
+    $('s2rings').style.transform = `translate(-50%, -50%) rotate(${lt * 12}deg) scale(${1 + 0.04 * Math.sin(lt * 6)})`;
+    // 最後のペアの後、拡大しながら紺色へ抜ける
+    const out = easeIn(prog(t, T.s3 - 0.2, T.s3));
+    $('s2').style.opacity = 1 - out;
+    $('s2').style.transform = `scale(${1 + out * 0.12})`;
+  }
+
+  /* ---- S3: 問いかけ+スロット ---- */
+  if (t >= T.s3 && t < T.s4) {
+    const lt = t - T.s3;
+    fadeUp($('s3q1'), lt, 0.0, 0.3);
+    punch($('s3q2'), lt, 0.3, 0.3, 1.5);
+    fadeUp($('s3card'), lt, 0.55, 0.35, 120);
+    // スロットはだんだん減速し、最後は「？」で止める(答えは自分で確かめてもらう)
+    const sp = prog(lt, 0.7, 2.3);
+    const n = Math.floor(28 * (1 - Math.pow(1 - sp, 2)));
+    const landed = lt >= 2.3;
+    $('slot').textContent = landed ? '？' : SLOT[n % SLOT.length];
+    $('slot').style.fontSize = landed ? '150px' : (SLOT[n % SLOT.length].length > 9 ? '68px' : '88px');
+    $('slot').style.transform = landed ? `scale(${lerp(1.6, 1, backOut(prog(lt, 2.3, 2.55)))})` : 'none';
+    $('score').textContent = landed ? '??' : String(40 + ((n * 37) % 59));
+    $('s3rings').style.transform = `translate(-50%, -50%) scale(${1 + 0.08 * Math.sin(lt * 9)}) rotate(${-lt * 20}deg)`;
+  }
+
+  /* ---- S4: CTA ---- */
+  if (t >= T.s4) {
+    const lt = Math.min(t, T.end) - T.s4;
+    const rp = easeOut(prog(lt, 0, 0.5));
+    $('s4rings').style.opacity = rp;
+    $('s4rings').style.transform = `translate(-50%, -50%) scale(${lerp(0.4, 1, rp)}) rotate(${lt * 15}deg)`;
+    fadeUp($('s4brand'), lt, 0.1, 0.35);
+    fadeUp($('s4copy'), lt, 0.3, 0.35);
+    punch($('s4btn'), lt, 0.55, 0.35, 1.25);
+    // ボタンの鼓動でタップを促す
+    if (lt > 0.95) $('s4btn').style.transform = `scale(${1 + 0.03 * Math.max(0, Math.sin((lt - 0.95) * 7))})`;
+    fadeUp($('s4chips'), lt, 0.8, 0.3);
+    fadeUp($('s4url'), lt, 0.95, 0.3);
+    fadeUp($('s4tap'), lt, 1.1, 0.3);
+    if (lt > 1.4) $('s4tap').style.transform = `translateY(${-10 * Math.abs(Math.sin((lt - 1.4) * 5))}px)`;
+  }
+}
+window.render = render;
+window.TIMELINE = T;
+render(0);
+</script>
+</body>
+</html>
